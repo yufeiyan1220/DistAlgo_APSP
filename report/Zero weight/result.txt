@@ -1,0 +1,20 @@
+source <P:c6002>:0
+<P:c6003>: 1's parent =  <P:c6002>
+<P:c6004>: 2's parent =  <P:c6002>
+output = {<P:c6002>: 0}
+output = {<P:c6002>: 1}
+output = {<P:c6002>: 0}
+
+source <P:18003>:1
+<P:18002>: 0's parent =  <P:18003>
+<P:18004>: 2's parent =  <P:18003>
+output = {<P:18003>: 0}
+output = {<P:18003>: 0}
+output = {<P:18003>: 1}
+
+source <P:81004>:2
+<P:81002>: 0's parent =  <P:81004>
+<P:81003>: 1's parent =  <P:81004>
+output = {<P:81004>: 1}
+output = {<P:81004>: 1}
+output = {<P:81004>: 0}

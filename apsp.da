@@ -1,0 +1,188 @@
+import sys
+import math
+import functools
+from collections import defaultdict
+
+class G:
+    def __init__(self, weights, n):
+        if len(weights) == n * n:
+            self.weights = weights
+            self.np = n
+        else:
+            print('Input weights error')
+
+    def neighbor(self, p):
+        neighbor_ids = []
+        neighbor_weights = self.weights[p * self.np: (p + 1) * self.np]
+        for i in range(self.np):
+            if neighbor_weights[i] >= -1:
+                neighbor_ids.append(i)
+        return neighbor_ids
+
+    def getWeight(self, i, j):
+        if self.weights[i * self.np + j] < -1:
+            return float("inf")
+        else:
+            return self.weights[i * self.np + j]
+
+class P(process):
+    def setup(neighbors:list, sources:list, clique: list, idmapping:dict, G:G, delta:float, h:int):
+
+        self.neighbors = neighbors
+        self.d_star_dict = {}
+        self.z_list = []
+        self.sources = sources
+
+        if self in sources:
+            self.is_source = True
+        else:
+            self.is_source = False
+
+        self.r = 0
+        self.delta = delta
+        self.h = h
+        self.G = G
+        self.idmapping = idmapping
+        self.clique = clique
+        self.rcount = defaultdict(lambda: 0)  # dict of n of proc reach r r
+        self.pcount = len(clique) + 1  # n of proc
+
+    def initiate():
+        for p in self.sources:
+            self.d_star_dict[p] = float("inf")
+        if is_source:
+            self.d_star_dict[self] = 0
+            z = [0, 0, 0, self, True, None]
+            self.z_list.append(z)
+
+    def msgsending():
+        for i in range(len(self.z_list)):
+            z = self.z_list[i]
+            #output((self.r, int(z[0] + i)))
+            #output("lists", z_list)
+            if self.r == int(z[0] + i):
+                cal_z = cal_Zv(z)
+                #output(self, "send", ("M", self, z, cal_z), "to", neighbors)
+                send(("M", self, z, cal_z), to=neighbors)
+
+    def sync():
+        send(('r', self.r), to=clique)
+        if await(rcount[self.r] == pcount - 1):
+            self.r += 1
+
+    def receive(msg=('r', round_i)):
+        rcount[round_i] += 1
+
+    def receive(msg=('M', p, z, Zv)):
+
+        kappa = z[0] + self.G.getWeight(idmapping[p], idmapping[self])*gamma(len(self.neighbors), self.h, self.delta) + 1
+        d = z[1] + self.G.getWeight(idmapping[p], idmapping[self])
+        l = z[2] + 1
+        new_z = [kappa, d, l, z[3], False, p]
+        z_star = None
+        for entry in self.z_list:
+            if entry[4] and entry[3] == z[3]:
+                z_star = entry
+        if z[4] and l <= self.h and (d < d_star_dict[z[3]] or (d == z_star[1] and l < z_star[2]) or (d == z_star[1] and l == z_star[2] and new_z[5] < z_star[p])):
+            #output(("before", d, z[3], d_star_dict[z[3]]))
+            d_star_dict[z[3]] = d
+            #output(("after", d, z[3], d_star_dict[z[3]]))
+            new_z[4] = True
+            if z_star:
+                z_star[4] = False
+            self.z_list.append(new_z)
+            self.z_list.sort(key=functools.cmp_to_key(cmpValue))
+            index_z = self.z_list.index(new_z)
+            for i in range(index_z + 1, len(self.z_list)):
+                z_temp = self.z_list[i]
+                if z_temp[3] == new_z[3] and not z_temp[4]:
+                    self.z_list.remove(z_temp)
+                    break
+
+        else:
+            num_of_entries_z_list = cal_num_of_z_list(self.z_list, new_z)
+            if num_of_entries_z_list < Zv:
+                self.z_list.append(new_z)
+                self.z_list.sort(key=functools.cmp_to_key(cmpValue))
+                index_z = self.z_list.index(new_z)
+                for i in range(index_z + 1, len(self.z_list)):
+                    z_temp = self.z_list[i]
+                    if z_temp[3] == new_z[3] and not z_temp[4]:
+                        self.z_list.remove(z_temp)
+                        break
+        #output(("receive", z))
+
+    def cal_num_of_z_list(li, z):
+        result = 0
+        for p in li:
+            if p[0] <= z[0] and p[3] == z[3]:
+                result += 1
+        return result
+
+    def cal_Kappa(d, k, h, delta, l):
+        return d*gamma(k, h, delta) + l
+    def gamma(k, h, delta):
+        return math.sqrt(k*h/delta)
+    def cal_Zv(z):
+        result = 0
+        index = self.z_list.index(z)
+        for i in range(index + 1):
+            if z_list[i][3] == z[3]:
+                result += 1
+        return result
+
+    def cmpValue(subInfo1, subInfo2):
+        if subInfo1[0] != subInfo2[0]:
+            return subInfo1[0] - subInfo2[0]
+        elif subInfo1[1] != subInfo2[1]:
+            return subInfo1[1] - subInfo2[1]
+        elif subInfo1[3] != subInfo2[3]:
+            return subInfo1[3] - subInfo2[3]
+        else:
+            return 0
+
+    def run():
+        initiate()
+        while self.r <= 20:
+            # do something here
+            # await (leaderid != None)
+            msgsending()
+            # output("Leader is", leaderid)
+            sync()
+        output("output =", self.d_star_dict)
+
+
+def main():
+    n = int(sys.argv[1]) if len(sys.argv) > 1 else 4
+    config(channel="fifo")
+    '''
+    weights = [
+        -1, 2, -1, -1, -1, 4,
+        2, -1, -1, 6, -1, -1,
+        -1, -1, -1, 5, -1, -1,
+        -1, 6, 5, -1, 1, -1,
+        -1, -1, -1, 1, -1, -1,
+        4, -1, -1, -1, -1, -1
+    ]
+    '''
+    weights =[
+        -2, 0, -1,
+        3, -2, 0,
+        -2, 2, -2
+    ]
+    graph = G(weights, n)
+    ps = list(new(P, num=n))
+
+    sources = [ps[0], ps[1], ps[2]]
+    idmapping = {}
+    delta = 10
+    hop = 2
+    for i, p in enumerate(ps):
+        idmapping[p] = i
+    output(idmapping)
+    for i, p in enumerate(ps):
+        neighbors = [ps[x] for x in graph.neighbor(i)]
+        print(neighbors)
+        setup({p}, (neighbors, sources, [ps[i0] for i0, p0 in enumerate(ps) if i0 != i], idmapping, graph, delta, hop))
+
+    start(ps)
