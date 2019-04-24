@@ -15,12 +15,12 @@ class G:
         neighbor_ids = []
         neighbor_weights = self.weights[p * self.np: (p + 1) * self.np]
         for i in range(self.np):
-            if neighbor_weights[i] >= -1:
+            if neighbor_weights[i] >= 0:
                 neighbor_ids.append(i)
         return neighbor_ids
 
     def getWeight(self, i, j):
-        if self.weights[i * self.np + j] < -1:
+        if self.weights[i * self.np + j] < 0:
             return float("inf")
         else:
             return self.weights[i * self.np + j]
@@ -45,7 +45,7 @@ class P(process):
         self.idmapping = idmapping
         self.clique = clique
         self.rcount = defaultdict(lambda: 0)  # dict of n of proc reach r r
-        self.pcount = len(clique) + 1  # n of proc
+        self.pcount = len(clique)  # n of proc
 
     def initiate():
         for p in self.sources:
@@ -67,7 +67,7 @@ class P(process):
 
     def sync():
         send(('r', self.r), to=clique)
-        if await(rcount[self.r] == pcount - 1):
+        if await(rcount[self.r] == pcount):
             self.r += 1
 
     def receive(msg=('r', round_i)):
@@ -153,9 +153,9 @@ class P(process):
 
 
 def main():
-    n = int(sys.argv[1]) if len(sys.argv) > 1 else 4
+    n = int(sys.argv[1]) if len(sys.argv) > 1 else 6
     config(channel="fifo")
-    '''
+
     weights = [
         -1, 2, -1, -1, -1, 4,
         2, -1, -1, 6, -1, -1,
@@ -166,23 +166,24 @@ def main():
     ]
     '''
     weights =[
-        -2, 0, -1,
-        3, -2, 0,
-        -2, 2, -2
+        -2, -1, -2,
+        -2, -2, -1,
+        -1, -2, -2
     ]
+    '''
     graph = G(weights, n)
     ps = list(new(P, num=n))
 
-    sources = [ps[0], ps[1], ps[2]]
+    sources = [ps[0], ps[1], ps[2], ps[3], ps[4], ps[5]]
     idmapping = {}
-    delta = 10
-    hop = 2
+    delta = 20
+    hop = 20
     for i, p in enumerate(ps):
         idmapping[p] = i
     output(idmapping)
     for i, p in enumerate(ps):
         neighbors = [ps[x] for x in graph.neighbor(i)]
         print(neighbors)
-        setup({p}, (neighbors, sources, [ps[i0] for i0, p0 in enumerate(ps) if i0 != i], idmapping, graph, delta, hop))
+        setup({p}, (neighbors, sources, [ps[i0] for i0, p0 in enumerate(ps)], idmapping, graph, delta, hop))
 
     start(ps)
