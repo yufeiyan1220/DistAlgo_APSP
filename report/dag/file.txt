@@ -1,0 +1,10 @@
+OUTPUT: {<P:bfc04>: 0, <P:bfc02>: 1, <P:bfc07>: 2, <P:bfc03>: 3, <P:bfc05>: 4, <P:bfc06>: 5}
+
+
+<P:bfc04> output = {<P:bfc04>: 0, <P:bfc02>: inf, <P:bfc07>: inf, <P:bfc03>: inf, <P:bfc05>: inf, <P:bfc06>: inf}
+<P:bfc02> output = {<P:bfc04>: 1, <P:bfc02>: 0, <P:bfc07>: inf, <P:bfc03>: inf, <P:bfc05>: inf, <P:bfc06>: inf}
+<P:bfc07> output = {<P:bfc04>: 7, <P:bfc02>: inf, <P:bfc07>: 0, <P:bfc03>: inf, <P:bfc05>: inf, <P:bfc06>: inf}
+<P:bfc03> output = {<P:bfc04>: 10, <P:bfc02>: 9, <P:bfc07>: inf, <P:bfc03>: 0, <P:bfc05>: inf, <P:bfc06>: inf}
+<P:bfc05> output = {<P:bfc04>: 11, <P:bfc02>: 19, <P:bfc07>: 4, <P:bfc03>: 10, <P:bfc05>: 0, <P:bfc06>: inf}
+<P:bfc06> output = {<P:bfc04>: 14, <P:bfc02>: 14, <P:bfc07>: 7, <P:bfc03>: 5, <P:bfc05>: 3, <P:bfc06>: 0}
+
