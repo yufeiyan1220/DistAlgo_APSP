@@ -15,12 +15,12 @@ class G:
         neighbor_ids = []
         neighbor_weights = self.weights[p * self.np: (p + 1) * self.np]
         for i in range(self.np):
-            if neighbor_weights[i] >= 0:
+            if neighbor_weights[i] >= -1:
                 neighbor_ids.append(i)
         return neighbor_ids
 
     def getWeight(self, i, j):
-        if self.weights[i * self.np + j] < 0:
+        if self.weights[i * self.np + j] < -1:
             return float("inf")
         else:
             return self.weights[i * self.np + j]
@@ -56,14 +56,16 @@ class P(process):
             self.z_list.append(z)
 
     def msgsending():
+        output("lists", z_list)
         for i in range(len(self.z_list)):
             z = self.z_list[i]
             #output((self.r, int(z[0] + i)))
-            #output("lists", z_list)
+
             if self.r == int(z[0] + i):
                 cal_z = cal_Zv(z)
                 #output(self, "send", ("M", self, z, cal_z), "to", neighbors)
                 send(("M", self, z, cal_z), to=neighbors)
+            #output("err", z)
 
     def sync():
         send(('r', self.r), to=clique)
@@ -75,7 +77,8 @@ class P(process):
 
     def receive(msg=('M', p, z, Zv)):
 
-        kappa = z[0] + self.G.getWeight(idmapping[p], idmapping[self])*gamma(len(self.neighbors), self.h, self.delta) + 1
+        kappa = z[0] + self.G.getWeight(idmapping[p], idmapping[self])*gamma(len(self.sources), self.h, self.delta) + 1
+
         d = z[1] + self.G.getWeight(idmapping[p], idmapping[self])
         l = z[2] + 1
         new_z = [kappa, d, l, z[3], False, p]
@@ -83,15 +86,18 @@ class P(process):
         for entry in self.z_list:
             if entry[4] and entry[3] == z[3]:
                 z_star = entry
-        if z[4] and l <= self.h and (d < d_star_dict[z[3]] or (d == z_star[1] and l < z_star[2]) or (d == z_star[1] and l == z_star[2] and new_z[5] < z_star[p])):
+        if z[4] and l <= self.h and (d < d_star_dict[z[3]] or (d == z_star[1] and kappa < z_star[0]) or (d == z_star[1] and kappa == z_star[0] and new_z[5] < z_star[5])):
             #output(("before", d, z[3], d_star_dict[z[3]]))
             d_star_dict[z[3]] = d
             #output(("after", d, z[3], d_star_dict[z[3]]))
             new_z[4] = True
             if z_star:
                 z_star[4] = False
+            #output("Test1", self.z_list)
             self.z_list.append(new_z)
+
             self.z_list.sort(key=functools.cmp_to_key(cmpValue))
+
             index_z = self.z_list.index(new_z)
             for i in range(index_z + 1, len(self.z_list)):
                 z_temp = self.z_list[i]
@@ -137,13 +143,16 @@ class P(process):
         elif subInfo1[1] != subInfo2[1]:
             return subInfo1[1] - subInfo2[1]
         elif subInfo1[3] != subInfo2[3]:
-            return subInfo1[3] - subInfo2[3]
+            if subInfo1[3] > subInfo2[3]:
+                return 1
+            else:
+                return -1
         else:
             return 0
 
     def run():
         initiate()
-        while self.r <= 20:
+        while self.r <= 100:
             # do something here
             # await (leaderid != None)
             msgsending()
@@ -157,27 +166,28 @@ def main():
     config(channel="fifo")
 
     weights = [
-        -1, 2, -1, -1, -1, 4,
-        2, -1, -1, 6, -1, -1,
-        -1, -1, -1, 5, -1, -1,
-        -1, 6, 5, -1, 1, -1,
-        -1, -1, -1, 1, -1, -1,
-        4, -1, -1, -1, -1, -1
+        -2, 2, -2, -2, -2, 4,
+        2, -2, -2, 6, -2, -2,
+        -2, -2, -2, 5, -2, -2,
+        -2, 6, 5, -2, 1, -2,
+        -2, -2, -2, 1, -2, -2,
+        4, -2, -2, -2, -2, -2
     ]
-    '''
-    weights =[
-        -2, -1, -2,
-        -2, -2, -1,
-        -1, -2, -2
-    ]
-    '''
+
+    # weights =[
+    #     -2, -1, -2,
+    #     -2, -2, 2,
+    #     3, -2, -2
+    # ]
+
     graph = G(weights, n)
     ps = list(new(P, num=n))
 
+    sources = [ps[0], ps[1], ps[2]]
     sources = [ps[0], ps[1], ps[2], ps[3], ps[4], ps[5]]
     idmapping = {}
     delta = 20
-    hop = 20
+    hop = 10
     for i, p in enumerate(ps):
         idmapping[p] = i
     output(idmapping)
