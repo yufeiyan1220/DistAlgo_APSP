@@ -1,5 +1,5 @@
-{<P:2b003>: 0, <P:2b002>: 1, <P:2b004>: 2}
+{<P:4c002>: 0, <P:4c003>: 1, <P:4c004>: 2}
 
-[164] asps.P<P:2b003>:OUTPUT: output = {<P:2b003>: 0, <P:2b002>: 3, <P:2b004>: 5}
-[278] asps.P<P:2b002>:OUTPUT: output = {<P:2b003>: 0, <P:2b002>: 0, <P:2b004>: 2}
-[63] asps.P<P:2b004>:OUTPUT: output = {<P:2b003>: -1, <P:2b002>: 0, <P:2b004>: 0}
+[324] apsp.P<P:4c002>:OUTPUT: output = {<P:4c002>: 0, <P:4c003>: inf, <P:4c004>: -1}
+[226] apsp.P<P:4c003>:OUTPUT: output = {<P:4c002>: -1, <P:4c003>: 0, <P:4c004>: inf}
+[115] apsp.P<P:4c004>:OUTPUT: output = {<P:4c002>: inf, <P:4c003>: -1, <P:4c004>: 0}
