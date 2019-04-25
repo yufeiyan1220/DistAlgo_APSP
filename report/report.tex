@@ -35,7 +35,7 @@
 CSCE 668, Distributed Algorithms and Systems \\  % \\ is line break
 Spring 2019 \\
 Project Report \\
-Feiyan Yu
+Feiyan Yu, Boquan Tao, Ziyi Liu
 }
 \end{center}
 
@@ -88,12 +88,10 @@ Feiyan Yu
 
 \rule{6in}{.1pt}       % horizontal line 6 inches long and .1 point high
 
-\noindent
-Our project is from the paper "A deterministic distributed algorithm for weighted all pairs shortest paths through pipelining". Shortest path is a popular research field in distributed algorithm. In this paper, the authors presents an algorithm which can calculate the shortest path from different sources. The algorithm solves $(h,k)$-$SSP$ problem, which means that there are $k$ sources which we can arbitrarily assign and every shortest path does not exceed $h$ hop length. If we assign $k$ sources to be all nodes in the graph, then we get APSP( all pairs shortest paths) problem. In an older paper also proposed by the same authors, another algorithm is presented to solve APSP which requires single source shortest path as a sub-routine and introduces the concept of blocker set. The new algorithm therefore can generalize better. This algorithm, like the older version, needs to assume synchronization. The round number needed to complete the $(h,k)$-$SSP$ problem is $2\sqrt{\Delta kh}+k+h$. If we want to solve ASAP and set $k$ to be $n$, then the round number is $2n\sqrt{\Delta} +2n$. All shortest distances are at most $\Delta$. $\Delta$ is a parameter which we need to give to the algorithm. A simple way of getting $\Delta$ is to input the longest path in the graph. The old algorithm will finish in $O(n^\frac{3}{2})$ rounds which is asymptotically worse than $2n\sqrt{\Delta} +2n$.
 
+Our project is from the paper "A deterministic distributed algorithm for weighted all pairs shortest paths through pipelining". Shortest path is a popular research field in distributed algorithm. In this paper, the authors presents an algorithm which can calculate the shortest path from different sources. The algorithm solves $(h,k)$-$SSP$ problem, which means that there are $k$ sources which we can arbitrarily assign and every shortest path does not exceed $h$ hop length. If we assign $k$ sources to be all nodes in the graph, then we get APSP( all pairs shortest paths) problem. In an older paper also proposed by the same authors, another algorithm is presented to solve APSP which requires single source shortest path as a sub-routine and introduces the concept of blocker set. The new algorithm therefore can generalize better. This algorithm, like the older version, needs to assume synchronization. The round number needed to complete the $(h,k)$-$SSP$ problem is $2\sqrt{\Delta kh}+k+h$. If we want to solve ASAP and set $k$ to be $n$, then the round number is $2n\sqrt{\Delta} +2n$. All shortest distances are at most $\Delta$. $\Delta$ is a parameter which we need to give to the algorithm. A simple way of getting $\Delta$ is to input the longest path in the graph. The old algorithm will finish in $O(n^\frac{3}{2})$ rounds which is asymptotically worse than $2n\sqrt{\Delta} +2n$.\par
 
-\noindent
-The algorithm runs in CONGEST model in which every link's bandwidth is bounded. Every node only knows its incident edges. The graph can be directed or undirected. The weight of each edge is non-negative. The old algorithm can tolerate negative edges as long as there are no negative cycles. 
+The algorithm runs in CONGEST model in which every link's bandwidth is bounded. Every node only knows its incident edges. The graph can be directed or undirected. The weight of each edge is non-negative. The old algorithm can tolerate negative edges as long as there are no negative cycles. \par
 
 
 %---------------------------------------------------------------------
@@ -103,13 +101,11 @@ The algorithm runs in CONGEST model in which every link's bandwidth is bounded. 
 
 \rule{6in}{.1pt}       % horizontal line 6 inches long and .1 point high
 
-An innovative feature of this algorithm is the use of $\kappa$ instead of just weighted distance. More specifically, $\kappa = d*\gamma + l$, where $\gamma = \sqrt{kh/\Delta}$. So $\kappa$ inherits from weighted distance $d$ and hop length $l$. Another interesting part is that every node keeps a list $list_v$ which stores entry $Z$. $Z$ is of the form $[\kappa, d, l, x]$, where $x$ is the source node. Although some path can never be shortest paths, the storage of it can enable the algorithm to terminate in $O(\sqrt{\Delta kh})$. Because there are many variables, it is clearer to see in a table. 
+An innovative feature of this algorithm is the use of $\kappa$ instead of just weighted distance. More specifically, $\kappa = d*\gamma + l$, where $\gamma = \sqrt{kh/\Delta}$. So $\kappa$ inherits from weighted distance $d$ and hop length $l$. Another interesting part is that every node keeps a list $list_v$ which stores entry $Z$. $Z$ is of the form $[\kappa, d, l, x]$, where $x$ is the source node. Although some path can never be shortest paths, the storage of it can enable the algorithm to terminate in $O(\sqrt{\Delta kh})$. Because there are many variables, it is clearer to see in a table. \par
 
+The entries in $list_v$ are sorted in the order $(d,l,x)$. Initially, every node sets their distance to sources infinity. The sources set its distance to itself 0, and add the entry $(0,0,0,v)$ to its own $list_v$. All other non source nodes have an empty $list_v$ at the beginning. $Z.v$ represents the number of entries in $list_v$ for source $x$ which are below and at $Z$. The message sent is in the form $(Z,Z.flag-d^*,Z.v)$. When receiving a message $Z^-$, it first constructs a new entry $Z$ based on that message. The hop length will increment by 1, the distance will add the weight on that edge and $\kappa$ will change accordingly. If the new distance is smaller than the current shortest distance for that source, we then set the shortest distance to the new distance. And if there are less than $Z^-.v$ entries in $list_v$ for source $x$ whose key value $\kappa$ are smaller than $Z.\kappa$, then we just insert that $Z$ to $list_v$. If not, this new $Z$ will never be a shortest path entry and we can just ignore it. \par
 
-The entries in $list_v$ are sorted in the order $(d,l,x)$. Initially, every node sets their distance to sources infinity. The sources set its distance to itself 0, and add the entry $(0,0,0,v)$ to its own $list_v$. All other non source nodes have an empty $list_v$ at the beginning. $Z.v$ represents the number of entries in $list_v$ for source $x$ which are below and at $Z$. The message sent is in the form $(Z,Z.flag-d^*,Z.v)$. When receiving a message $Z^-$, it first constructs a new entry $Z$ based on that message. The hop length will increment by 1, the distance will add the weight on that edge and $\kappa$ will change accordingly. If the new distance is smaller than the current shortest distance for that source, we then set the shortest distance to the new distance. And if there are less than $Z^-.v$ entries in $list_v$ for source $x$ whose key value $\kappa$ are smaller than $Z.\kappa$, then we just insert that $Z$ to $list_v$. If not, this new $Z$ will never be a shortest path entry and we can just ignore it. 
-
-
-Because $flag-d^*$ and $p$ are also attached to entry $Z$, in our implementation, we add those two in our $Z$. So now $Z$ is in the form: $(\kappa, d, l, x, flag-d^*, p)$. The graph in presented in a matrix, where -1 means there is no edge between the two nodes and non-negative number shows the weight. 
+Because $flag-d^*$ and $p$ are also attached to entry $Z$, in our implementation, we add those two in our $Z$. So now $Z$ is in the form: $(\kappa, d, l, x, flag-d^*, p)$. The graph in presented in a matrix, where -1 means there is no edge between the two nodes and non-negative number shows the weight. \par
 
 \begin{table}[h!]
   \begin{center}
@@ -336,32 +332,32 @@ $\langle P:bfc06\rangle$&14&14&7&5&3&0\\
 \caption{Result of our algorithm on graph 2}
 \end{table}\par
 
-Then we compare the result of shortest path of single sources (corresponding to each column in the table) from \href{https://visualgo.net/en/sssp}{Visualgo}'s Dijkstra's algorithm.\par
+Then we compare the results of shortest path of single sources (corresponding to each column in the table) from \href{https://visualgo.net/en/sssp}{Visualgo}'s Dijkstra's algorithm.\par
 
 \begin{figure}[htbp]
 \centering
 \subfigure[source: node 0]{
-\includegraphics[width=5cm]{dag/source0.png}
+\includegraphics[width=4.5cm]{dag/source0.png}
 }
 \quad
 \subfigure[source: node 1]{
-\includegraphics[width=5cm]{dag/source1.png}
+\includegraphics[width=4.5cm]{dag/source1.png}
 }
 \quad
 \subfigure[source: node 2]{
-\includegraphics[width=5cm]{dag/source2.png}
+\includegraphics[width=4.5cm]{dag/source2.png}
 }
 \quad
 \subfigure[source: node 3]{
-\includegraphics[width=5cm]{dag/source3.png}
+\includegraphics[width=4.5cm]{dag/source3.png}
 }
 \quad
 \subfigure[source: node 4]{
-\includegraphics[width=5cm]{dag/source4.png}
+\includegraphics[width=4.5cm]{dag/source4.png}
 }
 \quad
 \subfigure[source: node 5]{
-\includegraphics[width=5cm]{dag/source5.png}
+\includegraphics[width=4.5cm]{dag/source5.png}
 }
 \caption{ Result of graph 1 from visualgo}
 \end{figure}
@@ -370,7 +366,7 @@ The second example is a weighted undirected tree, and the topology of the graph 
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=4cm]{CP3_440Tree/CP3_440.png}
+\includegraphics[width=5cm]{CP3_440Tree/CP3_440.png}
 \caption{Test graph 2}
 \end{figure}\par
 
@@ -386,7 +382,7 @@ The following is the mapping between processor's name and the node id.\par
 <P:47006>&: 5. \\
 \end{aligned}
 \end{equation}\par
-Then the following table shows the results.\par 
+Then the table 5 shows the results of our algorithm.\par 
 
 \begin{table}[!htbp]
 \centering
@@ -411,7 +407,7 @@ $\langle P:bfc06\rangle$&4&6&$inf$&12&13&0\\
 \caption{Result of our algorithm on graph 3}
 \end{table}\par
 
-Then the result of shortest path of single sources (corresponding to each column in the table) from \href{https://visualgo.net/en/sssp}{Visualgo}'s Dijkstra's algorithm.\par
+Then figure 4 shows results of shortest path of single sources (corresponding to each column in the table) from \href{https://visualgo.net/en/sssp}{Visualgo}'s Dijkstra's algorithm.\par
 
 \begin{figure}[htbp]
 \centering
@@ -440,6 +436,8 @@ Then the result of shortest path of single sources (corresponding to each column
 }
 \caption{ Result of graph 2 from visualgo}
 \end{figure}\par
+
+\clearpage
 
 The following three example are two negative weighted examples and a graph with a zero weight edge.\par
 
@@ -480,7 +478,7 @@ In graph with negative weight edges, the algorithm is not able to give the corre
 \subfigure[graph with negative cycle]{
 \includegraphics[width=4cm]{negativeCycle/negativeCycle.png}
 }
-\caption{ Two counter examples}
+\caption{ Two graphs with negative weight edges}
 \end{figure}\par
 
 Judging from the output of the algorithm and comparing with the correct result, the algorithm gives the wrong result.\par
@@ -498,7 +496,7 @@ Judging from the output of the algorithm and comparing with the correct result, 
 \subfigure[source: node 2]{
 \includegraphics[width=4cm]{negativeEdge/negativeEdge2start.png}
 }
-\caption{ Visualgo result for the first counter example}
+\caption{ Visualgo result for the first negative weight example}
 \end{figure}\par
 
 \noindent
