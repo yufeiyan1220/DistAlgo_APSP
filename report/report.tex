@@ -520,4 +520,14 @@ $\langle P:4c002\rangle$:OUTPUT: output = {$\langle P:4c002\rangle$: 0, $\langle
 $\langle P:4c003\rangle$:OUTPUT: output = {$\langle P:4c002\rangle$: -1, $\langle P:4c003\rangle$: 0, $\langle P:4c004\rangle$: $inf$}\\
 $\langle P:4c004\rangle$:OUTPUT: output = {$\langle P:4c002\rangle$: $inf$, $\langle P:4c003\rangle$: -1, $\langle P:4c004\rangle$: 0}\\
 \rule{5in}{.1pt}\par
+
+
+{\bf Conclusion}
+
+\rule{6in}{.1pt}       % horizontal line 6 inches long and .1 point high
+
+This algorithm is a strong and simple algorithm for finding shortest paths for $k$ sources. The round for all pairs shortest paths when $k$ is set to $n$ is $2n\sqrt{\Delta} +2n$, which is linear to $n$. Although every node has to keep a list $list_v$ locally, the number of entries in the list is at most $\sqrt{\Delta h/k}+1$, which is acceptable. 
+
+We use DistAlgo to implement this algorithm and the results are correct. This algorithm avoids going through edges with big weights because at every round, an entry $Z=(\kappa, d, l, x)$ would be sent only when $\lceil Z.\kappa + pos(Z) = r \rceil $, so if the edge weight is too big, $\kappa$ would also be very big, then this entry will be sent at a very late round. This strategy helps early termination and avoids sending useless message. But this strategy makes the algorithm not usable to negative edges. When a negative edge is present, then $\kappa$ can be negative. When the algorithm is checking whether $\lceil Z.\kappa + pos(Z) = r \rceil $, this equation can never be satisfied because this entry is less than round number $r$ and $r$ is always increasing.
+
 \end{document}
