@@ -1,0 +1,231 @@
+We test our algorithm on different graphs, and compare the result with another APSP algorithm - Dijkstra's algorithm. As for the comparison, we use some example at \href{https://visualgo.net/en/sssp}{Visualgo} .\par
+
+The first example is a weighted directed acyclic graphs, and the topology of the graph is as figure 1.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=9cm]{dag/0.png}
+\caption{Test graph 1}
+\end{figure}\par
+
+The following is the mapping between processor's name and the node id.\par
+
+\begin{equation}\nonumber
+\begin{aligned}
+<P:bfc04>&: 0, 
+<P:bfc02>&: 1, \\
+<P:bfc07>&: 2, 
+<P:bfc03>&: 3, \\
+<P:bfc05>&: 4, 
+<P:bfc06>&: 5. \\
+\end{aligned}
+\end{equation}\par
+Then the following table shows the results of our algorithm.\par 
+
+\begin{table}[!htbp]
+\centering
+\setlength{\tabcolsep}{1mm}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+processor&$\langle P:bfc04 \rangle$&$\langle P:bfc02\rangle$&$\langle P:bfc07\rangle$&$\langle P:bfc03\rangle$&$\langle P:bfc05\rangle$&$\langle P:bfc06\rangle$\\
+\hline
+$\langle P:bfc04\rangle$&0&$inf$&$inf$&$inf$&$inf$&$inf$\\
+\hline
+$\langle P:bfc02\rangle$&1&0&$inf$&$inf$&$inf$&$inf$\\
+\hline
+$\langle P:bfc07\rangle$&7&$inf$&0&$inf$&$inf$&$inf$\\
+\hline
+$\langle P:bfc03\rangle$&10&9&$inf$&0&$inf$&$inf$\\
+\hline
+$\langle P:bfc05\rangle$&11&19&4&10&0&$inf$\\
+\hline
+$\langle P:bfc06\rangle$&14&14&7&5&3&0\\
+\hline
+\end{tabular}
+\caption{Result of our algorithm on graph 2}
+\end{table}\par
+
+Then we compare the result of shortest path of single sources (corresponding to each column in the table) from \href{https://visualgo.net/en/sssp}{Visualgo}'s Dijkstra's algorithm.\par
+
+\begin{figure}[htbp]
+\centering
+\subfigure[source: node 0]{
+\includegraphics[width=5cm]{dag/source0.png}
+}
+\quad
+\subfigure[source: node 1]{
+\includegraphics[width=5cm]{dag/source1.png}
+}
+\quad
+\subfigure[source: node 2]{
+\includegraphics[width=5cm]{dag/source2.png}
+}
+\quad
+\subfigure[source: node 3]{
+\includegraphics[width=5cm]{dag/source3.png}
+}
+\quad
+\subfigure[source: node 4]{
+\includegraphics[width=5cm]{dag/source4.png}
+}
+\quad
+\subfigure[source: node 5]{
+\includegraphics[width=5cm]{dag/source5.png}
+}
+\caption{ Result of graph 1 from visualgo}
+\end{figure}
+
+The second example is a weighted undirected tree, and the topology of the graph is as figure 3.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=4cm]{CP3_440Tree/CP3_440.png}
+\caption{Test graph 2}
+\end{figure}\par
+
+The following is the mapping between processor's name and the node id.\par
+
+\begin{equation}\nonumber
+\begin{aligned}
+<P:47003>&: 0, 
+<P:47007>&: 1, \\
+<P:47004>&: 2, 
+<P:47002>&: 3, \\
+<P:47005>&: 4, 
+<P:47006>&: 5. \\
+\end{aligned}
+\end{equation}\par
+Then the following table shows the results.\par 
+
+\begin{table}[!htbp]
+\centering
+\setlength{\tabcolsep}{1mm}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+processor&$\langle P:bfc04 \rangle$&$\langle P:bfc02\rangle$&$\langle P:bfc07\rangle$&$\langle P:bfc03\rangle$&$\langle P:bfc05\rangle$&$\langle P:bfc06\rangle$\\
+\hline
+$\langle P:bfc04\rangle$&0&2&13&8&9&4\\
+\hline
+$\langle P:bfc02\rangle$&2&0&11&6&7&6\\
+\hline
+$\langle P:bfc07\rangle$&13&11&0&5&6&$inf$\\
+\hline
+$\langle P:bfc03\rangle$&8&6&5&0&1&12\\
+\hline
+$\langle P:bfc05\rangle$&9&7&6&1&0&$inf$\\
+\hline
+$\langle P:bfc06\rangle$&4&6&$inf$&12&13&0\\
+\hline
+\end{tabular}
+\caption{Result of our algorithm on graph 3}
+\end{table}\par
+
+Then the result of shortest path of single sources (corresponding to each column in the table) from \href{https://visualgo.net/en/sssp}{Visualgo}'s Dijkstra's algorithm.\par
+
+\begin{figure}[htbp]
+\centering
+\subfigure[source: node 0]{
+\includegraphics[width=4cm]{CP3_440Tree/CP3_440Tree0start.png}
+}
+\quad
+\subfigure[source: node 1]{
+\includegraphics[width=4cm]{CP3_440Tree/CP3_440Tree1start.png}
+}
+\quad
+\subfigure[source: node 2]{
+\includegraphics[width=4cm]{CP3_440Tree/CP3_440Tree2start.png}
+}
+\quad
+\subfigure[source: node 3]{
+\includegraphics[width=4cm]{CP3_440Tree/CP3_440Tree3start.png}
+}
+\quad
+\subfigure[source: node 4]{
+\includegraphics[width=4cm]{CP3_440Tree/CP3_440Tree4start.png}
+}
+\quad
+\subfigure[source: node 5]{
+\includegraphics[width=4cm]{CP3_440Tree/CP3_440Tree5start.png}
+}
+\caption{ Result of graph 2 from visualgo}
+\end{figure}\par
+
+The following three example are two negative weighted examples and a graph with a zero weight edge.\par
+
+In the graph with a zero weight edge, the algorithm will give the shortest path without including the zero weight unless the zero weight edge is necessary for the path. In result we also give the parent of node on the shortest path.\par
+
+\begin{figure}[htbp]
+\centering
+\subfigure[original graph]{
+\includegraphics[width=4cm]{zero_weight/-1.png}
+}
+\quad
+\subfigure[source: node 2]{
+\includegraphics[width=4cm]{zero_weight/2.png}
+}
+\caption{ graph with a zero weight edge}
+\end{figure}\par
+
+The following is output of the algorithm. As for source node 2, both node 0 and node one's immediate parent is node 2, which means since the zero weight edge is not necessary for the shortest path, it is not included.\par
+\noindent
+\rule{3in}{.1pt}
+\noindent \\
+source $\langle P:81004\rangle$:2\\
+$\langle P:81002\rangle$: 0's parent =  $\langle P:81004\rangle$\\
+$\langle P:81003\rangle$: 1's parent =  $\langle P:81004\rangle$\\
+output = {$\langle P:81004\rangle$: 1}\\
+output = {$\langle P:81004\rangle$: 1}\\
+output = {$\langle P:81004\rangle$: 0}\\
+\rule{3in}{.1pt}\par
+
+In graph with negative weight edges, the algorithm is not able to give the correct answer. \par
+
+\begin{figure}[htbp]
+\centering
+\subfigure[graph with only one negative edge]{
+\includegraphics[width=4cm]{negativeEdge/negativeEdge.png}
+}
+\quad
+\subfigure[graph with negative cycle]{
+\includegraphics[width=4cm]{negativeCycle/negativeCycle.png}
+}
+\caption{ Two counter examples}
+\end{figure}\par
+
+Judging from the output of the algorithm and comparing with the correct result, the algorithm gives the wrong result.\par
+
+\begin{figure}[htbp]
+\centering
+\subfigure[source: node 0]{
+\includegraphics[width=4cm]{negativeEdge/negativeEdge0start.png}
+}
+\quad
+\subfigure[source: node 1]{
+\includegraphics[width=4cm]{negativeEdge/negativeEdge1start.png}
+}
+\quad
+\subfigure[source: node 2]{
+\includegraphics[width=4cm]{negativeEdge/negativeEdge2start.png}
+}
+\caption{ Visualgo result for the first counter example}
+\end{figure}\par
+
+\noindent
+\rule{5in}{.1pt}
+\noindent \\
+{$\langle P:11002\rangle $: 0, $\langle P:11003\rangle$: 1,$\langle P:11004\rangle$: 2}\\
+$\langle P:11002\rangle$:OUTPUT: output = {$\langle P:11002\rangle$: 0, $\langle P:11003\rangle$: 3, $\langle P:11004\rangle$: 5}\\
+$\langle P:11003\rangle$:OUTPUT: output = {$\langle P:11002\rangle$: $inf$, $\langle P:11003\rangle$: 0, $\langle P:11004\rangle$: 2}\\
+$\langle P:11004\rangle$:OUTPUT: output = {$\langle P:11002\rangle$: -1, $\langle P:11003\rangle$: 2, $\langle P:11004\rangle$: 0}\\
+\rule{5in}{.1pt}\par
+
+It is known that there is no answer to the shortest path on negative weight cycle, but some algorithms like Bellman Ford's algorithm could detect negative cycle in the graph. After testing the negative weight cycle on this algorithm, it gives the same answer no matter how many rounds or hops we set. The answer is following.\par
+
+\noindent
+\rule{5in}{.1pt}
+\noindent \\
+{$\langle P:4c002\rangle $: 0, $\langle P:4c003\rangle$: 1,$\langle P:4c004\rangle$: 2}\\
+$\langle P:4c002\rangle$:OUTPUT: output = {$\langle P:4c002\rangle$: 0, $\langle P:4c003\rangle$: $inf$, $\langle P:4c004\rangle$: -1}\\
+$\langle P:4c003\rangle$:OUTPUT: output = {$\langle P:4c002\rangle$: -1, $\langle P:4c003\rangle$: 0, $\langle P:4c004\rangle$: $inf$}\\
+$\langle P:4c004\rangle$:OUTPUT: output = {$\langle P:4c002\rangle$: $inf$, $\langle P:4c003\rangle$: -1, $\langle P:4c004\rangle$: 0}\\
+\rule{5in}{.1pt}\par
