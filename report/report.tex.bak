@@ -16,8 +16,8 @@
 \usepackage[colorlinks, linkcolor=blue]{hyperref}
 
 %add algo
-\usepackage{algorithm}
-\usepackage{algorithmic}
+\usepackage{algorithm}  
+\usepackage{algorithmic} 
 \usepackage{graphicx}
 
 
@@ -45,12 +45,12 @@ Feiyan Yu, Boquan Tao, Ziyi Liu
 
 
 % blank line separates paragraphs.  First line of a paragraph is automatically
-% indented.
+% indented.  
 
 \rule{6in}{.1pt}      % horizontal line 6 inches long and .1 point high
 
 \noindent
-{\bf LaTeX hints:}
+{\bf LaTeX hints:} 
 \begin{itemize}       % makes a bulleted list
 
 \item Math formulas are enclosed in \$ signs, e.g., {\tt \$x + y = z\$}
@@ -59,17 +59,17 @@ Feiyan Yu, Boquan Tao, Ziyi Liu
 \item You can make tables using the ``tabular'' environment:
 
   \begin{center}
-  \begin{tabular}{|c|c|}  % two columns, both centered (c),
+  \begin{tabular}{|c|c|}  % two columns, both centered (c), 
                         % divided by vertical lines (|)
   \hline                  % horizontal line
   hello & goodbye         % separate column entries with &
   \\                      % end each line with \\
   \hline
   \hline
-  blue & green
+  blue & green 
   \\
   \hline
-  odd & even
+  odd & even 
   \\
   \hline
 
@@ -170,19 +170,19 @@ Because $flag-d^*$ and $p$ are also attached to entry $Z$, in our implementation
         \STATE for each $x \in S$ do $d^{*}_{x} \gets \infty$
         \STATE if $v \in S$ then $d^{*}_{x} \gets 0$; add entry $Z=(0,0,0,v)$ to $list_v$; $Z.flag-d^* \gets true$
     \end{algorithmic}
-
+    
     \hspace*{0.02in} Algorithm at node $v$ for round $r$:
     \begin{algorithmic}[1]
         \STATE send: if there is an entry $Z$ with $\lceil Z.\kappa + pos(Z) = r \rceil $
         \STATE ~~~~then compute $Z.v$ and form the message $M = <Z, Z.flag-d^*, Z.v>$ and send $M$ to all neighbors.
-
+        
         \STATE receive: let $I$ be the set of incoming messages
-        \STATE for each $M \in I$ do
+        \STATE for each $M \in I$ do 
         \STATE ~~~~let $M = (Z^- = (\kappa ^-, d^-, l^-,x), Z^-.flag-d^*, Z^-.v) $ and let the sender be $y$
         \STATE ~~~~$\kappa \gets \kappa ^- + w(y,v)*\gamma + 1$; $d \gets d^- +w(y,v)$; $l \gets l^- +1$
         \STATE ~~~~$Z \gets (\kappa, d, l, x)$; $Z.flag-d^* \gets false$; $Z.p \gets y$
         \STATE ~~~~let $Z^*$ be the entry for $x$ in $list_v$ such that $Z^*.flag-d^* = true$ if such an entry exists.
-        \STATE ~~~~if $Z^-.flag-d^*=true$ and $l<=h$ and ($(d<d^{*}_{x})$ or $(d=d^{*}_{x}$ and $Z.l< Z^*.l)$ or $(d=d^{*}_{x}$ and $Z.l = Z^*.l$ and $Z.p < Z^*.p)$
+        \STATE ~~~~if $Z^-.flag-d^*=true$ and $l<=h$ and ($(d<d^{*}_{x})$ or $(d=d^{*}_{x}$ and $Z.l< Z^*.l)$ or $(d=d^{*}_{x}$ and $Z.l = Z^*.l$ and $Z.p < Z^*.p)$ 
         \STATE ~~~~then $d^{*}_{x} \gets d$; $Z.flag-d^* \gets true$
         \STATE ~~~~~~~~if $Z^*$ exists
         \STATE ~~~~~~~~~~~~$Z^-.flag-d^*=false$
@@ -190,15 +190,15 @@ Because $flag-d^*$ and $p$ are also attached to entry $Z$, in our implementation
         \STATE ~~~~else
         \STATE ~~~~~~~~if there are less than $Z^-.v$ entries for $x$ with $key \leq Z.\kappa$ then INSERT($Z$)
     \end{algorithmic}
-
+    
     \hspace*{0.02in} INSERT(Z):
     \begin{algorithmic}[1]
         \STATE insert $Z$ in $list_v$ in sorted order of $(\kappa,d,x)$
-        \STATE if $\exists$ an entry $Z'$ for $x$ in $list_v$ such that $Z'.flag-d^* = false$ and $pos(Z')>pos(Z)$ then
-        \STATE ~~~~find $Z'$ with smallest $pos(Z')$ such that $pos(Z')>pos(Z)$ and $Z'.flag-d^* = false$
+        \STATE if $\exists$ an entry $Z'$ for $x$ in $list_v$ such that $Z'.flag-d^* = false$ and $pos(Z')>pos(Z)$ then 
+        \STATE ~~~~find $Z'$ with smallest $pos(Z')$ such that $pos(Z')>pos(Z)$ and $Z'.flag-d^* = false$ 
         \STATE ~~~~remove $Z'$ from $list_v$
     \end{algorithmic}
-
+    
 \end{algorithm}
 
 % \begin{figure}[h!]
@@ -215,25 +215,25 @@ Because $flag-d^*$ and $p$ are also attached to entry $Z$, in our implementation
 
 \begin{enumerate}
     \item Implementation of Graph API
-
+    
     This algorithm is based on graph, so we built a graph class with some APIs for implementing the main algorithm.
     We used adjacency matrix to show the weights in the graph. What we need is to find the neighbors for each vertex and get the weight of each edge.
-
+    
     \item Simulation of global round number in synchronous case
-
-    As for the tool in this project, DistAlgo, has a nature of asynchronous condition. So, it could not resolve the synchronous case directly, also, users could not add a global variables directly for each process. However, the requirement of this algorithm needs every process to know the round number even if this process does not receive any message in this round. So, after each round of sending message of shortest path, we implemented a synchronization step for making sure all the processes could successfully get into the same round.
-
-    Our strategy was simple at this step. We made all the processes send messages to every process contains the local round number. After receiving all the messages with the same round number as the local, the local round number increment by 1.
-
-    \begin{algorithm}[htb]
-    \caption{Round Number Synchronization for process $p_i$}
-    \label{alg:Framwork}
+    
+    As for the tool in this project, DistAlgo, has a nature of asynchronous condition. So, it could not resolve the synchronous case directly, also, users could not add a global variables directly for each process. However, the requirement of this algorithm needs every process to know the round number even if this process does not receive any message in this round. So, after each round of sending message of shortest path, we implemented a synchronization step for making sure all the processes could successfully get into the same round. 
+    
+    Our strategy was simple at this step. We made all the processes send messages to every process contains the local round number. After receiving all the messages with the same round number as the local, the local round number increment by 1. 
+    
+    \begin{algorithm}[htb] 
+    \caption{Round Number Synchronization for process $p_i$} 
+    \label{alg:Framwork} 
     \begin{algorithmic}[1] %这个1 表示每一行都显示数字
     \REQUIRE ~~\\ %算法的输入参数：Input
     Initially $p_i.round \gets 0$ and $p_i.received\_count \gets 0$ \\
     First Send message:\\
     \STATE send message $M = <p_i.round>$ to the all $n$ processes(including itself) and wait for receiving messages
-
+    
     Then Receive message M:\\
     \IF{$M.round = p_i.round$}
     \STATE $p_i.received\_count \gets p_i.received\_count + 1$
@@ -246,28 +246,28 @@ Because $flag-d^*$ and $p$ are also attached to entry $Z$, in our implementation
     \ENDIF
     \end{algorithmic}
     \end{algorithm}
-
+    
     \begin{itemize}
         \item[Termination:] Without any failures, all message should be received. So, before terminate, the process should receive n messages. If all the n message has the same round number, the algorithm terminate.
         \item[Correctness:]Without any failures, this synchronization could ensure that all the processes terminates, all process are at the same round.
-        \item[Proof:]
-
+        \item[Proof:] 
+        
         Lemma 1: At any stage, $p_i.round - p_j.round \leq 1$.
-        Proof: If $p_i.round - p_j.round > 1$, that means $p_i$ have received n message $M.round = p_i.round - 1 > o_j.round$. Because there is no duplicated message and no failure, the n message must include a message with round number $M.round = p_i.round - 1$ send by $p_j$. It raises contradiction because $p_j$ could not send a message with round number greater than its round.
-
-        So, the after the slowest processor terminates, and has not send the synchronization message at the next round, all the processes have the same round number. Because during the period between the slowest process terminates and it send the synchronization message for the next round, all processors has the same round number, we could use that time to implement our algorithm. Even if the actual situation is asynchronous, all the process uses the same and correct round number as a parameter. We could think that round number is global now.
+        Proof: If $p_i.round - p_j.round > 1$, that means $p_i$ have received n message $M.round = p_i.round - 1 > o_j.round$. Because there is no duplicated message and no failure, the n message must include a message with round number $M.round = p_i.round - 1$ send by $p_j$. It raises contradiction because $p_j$ could not send a message with round number greater than its round.  
+        
+        So, the after the slowest processor terminates, and has not send the synchronization message at the next round, all the processes have the same round number. Because during the period between the slowest process terminates and it send the synchronization message for the next round, all processors has the same round number, we could use that time to implement our algorithm. Even if the actual situation is asynchronous, all the process uses the same and correct round number as a parameter. We could think that round number is global now. 
     \end{itemize}
-
+    
     \rule{6in}{.1pt}       % horizontal line 6 inches long and .1 point high
-
+    
     \item Implementation of (h,k)-SSP algorithm
-
+    
     The implementation of the algorithm strictly followed the steps of the (h,k)-SSP in the paper. Because the round number only serve as the condition to determine whether $p_i$ should send message or not, we just user the time interval when all process has the same round number to check it and send (h,k)-SSP message.
-
+    
     The overall step of this implementation is showed below:
-        \begin{algorithm}[htb]
-        \caption{(h,k)-SSP(hop, $r_{limits}$, $\Delta$, Graph, Sources)}
-        \label{alg:Framwork}
+        \begin{algorithm}[htb] 
+        \caption{(h,k)-SSP(hop, $r_{limits}$, $\Delta$, Graph, Sources)} 
+        \label{alg:Framwork} 
         \begin{algorithmic}[1] %这个1 表示每一行都显示数字
         \REQUIRE ~~\\ %算法的输入参数：Input
         \STATE Initialization of loacal variable.
@@ -277,8 +277,8 @@ Because $flag-d^*$ and $p$ are also attached to entry $Z$, in our implementation
         \ENDWHILE
         \end{algorithmic}
         \end{algorithm}
-
-
+   
+    
 \end{enumerate}
 
 {\bf Results}
@@ -299,15 +299,15 @@ The following is the mapping between processor's name and the node id.\par
 
 \begin{equation}\nonumber
 \begin{aligned}
-<P:bfc04>&: 0,
+<P:bfc04>&: 0, 
 <P:bfc02>&: 1, \\
-<P:bfc07>&: 2,
+<P:bfc07>&: 2, 
 <P:bfc03>&: 3, \\
-<P:bfc05>&: 4,
+<P:bfc05>&: 4, 
 <P:bfc06>&: 5. \\
 \end{aligned}
 \end{equation}\par
-Then the following table shows the results of our algorithm.\par
+Then the following table shows the results of our algorithm.\par 
 
 \begin{table}[!htbp]
 \centering
@@ -374,15 +374,15 @@ The following is the mapping between processor's name and the node id.\par
 
 \begin{equation}\nonumber
 \begin{aligned}
-<P:47003>&: 0,
+<P:47003>&: 0, 
 <P:47007>&: 1, \\
-<P:47004>&: 2,
+<P:47004>&: 2, 
 <P:47002>&: 3, \\
-<P:47005>&: 4,
+<P:47005>&: 4, 
 <P:47006>&: 5. \\
 \end{aligned}
 \end{equation}\par
-Then the table 5 shows the results of our algorithm.\par
+Then the table 5 shows the results of our algorithm.\par 
 
 \begin{table}[!htbp]
 \centering
@@ -524,18 +524,9 @@ $\langle P:4c004\rangle$:OUTPUT: output = {$\langle P:4c002\rangle$: $inf$, $\la
 
 \rule{6in}{.1pt}       % horizontal line 6 inches long and .1 point high
 
-This algorithm is a strong and simple algorithm for finding shortest paths for $k$ sources. The round for all pairs shortest paths when $k$ is set to $n$ is $2n\sqrt{\Delta} +2n$, which is linear to $n$. Although every node has to keep a list $list_v$ locally, the number of entries in the list is at most $\sqrt{\Delta h/k}+1$, which is acceptable.
+This algorithm is a strong and simple algorithm for finding shortest paths for $k$ sources. The round for all pairs shortest paths when $k$ is set to $n$ is $2n\sqrt{\Delta} +2n$, which is linear to $n$. Although every node has to keep a list $list_v$ locally, the number of entries in the list is at most $\sqrt{\Delta h/k}+1$, which is acceptable. 
 
 We use DistAlgo to implement this algorithm and the results are correct. This algorithm avoids going through edges with big weights because at every round, an entry $Z=(\kappa, d, l, x)$ would be sent only when $\lceil Z.\kappa + pos(Z) = r \rceil $, so if the edge weight is too big, $\kappa$ would also be very big, then this entry will be sent at a very late round. This strategy helps early termination and avoids sending useless message. But this strategy makes the algorithm not usable to negative edges. When a negative edge is present, then $\kappa$ can be negative. When the algorithm is checking whether $\lceil Z.\kappa + pos(Z) = r \rceil $, this equation can never be satisfied because this entry is less than round number $r$ and $r$ is always increasing.
-
-{\bf Future Question}
-
-\rule{6in}{.1pt}       % horizontal line 6 inches long and .1 point high
-
-
-{\bf DistAlgo Assessment}
-
-\rule{6in}{.1pt}       % horizontal line 6 inches long and .1 point high
 
 
 {\bf Contribution}
@@ -543,11 +534,9 @@ We use DistAlgo to implement this algorithm and the results are correct. This al
 \rule{6in}{.1pt}       % horizontal line 6 inches long and .1 point high
 
 \begin{enumerate}
-    \item[-]Feiyan Yu: Implemented the $(h,k)$-$SSP$ algorithm using DistAlgo and maintain a Github repository for this project. 
-	\item[-]Boquan Tao: 
-	\item[-]Ziyi Liu:
+    \item[Feiyan Yu:] Implementation of the $(h,k)$-$SSP$
+	\item[Boquan Tao:] 
+	\item[Ziyi Liu:] 
 \end{enumerate}
-
-
 
 \end{document}
