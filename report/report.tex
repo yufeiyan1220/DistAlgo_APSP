@@ -106,6 +106,11 @@ An innovative feature of this algorithm is the use of $\kappa$ instead of just w
 The entries in $list_v$ are sorted in the order $(d,l,x)$. Initially, every node sets their distance to sources infinity. The sources set its distance to itself 0, and add the entry $(0,0,0,v)$ to its own $list_v$. All other non source nodes have an empty $list_v$ at the beginning. $Z.v$ represents the number of entries in $list_v$ for source $x$ which are below and at $Z$. The message sent is in the form $(Z,Z.flag-d^*,Z.v)$. When receiving a message $Z^-$, it first constructs a new entry $Z$ based on that message. The hop length will increment by 1, the distance will add the weight on that edge and $\kappa$ will change accordingly. If the new distance is smaller than the current shortest distance for that source, we then set the shortest distance to the new distance. And if there are less than $Z^-.v$ entries in $list_v$ for source $x$ whose key value $\kappa$ are smaller than $Z.\kappa$, then we just insert that $Z$ to $list_v$. If not, this new $Z$ will never be a shortest path entry and we can just ignore it. \par
 
 Because $flag-d^*$ and $p$ are also attached to entry $Z$, in our implementation, we add those two in our $Z$. So now $Z$ is in the form: $(\kappa, d, l, x, flag-d^*, p)$. The graph in presented in a matrix, where -1 means there is no edge between the two nodes and non-negative number shows the weight. \par
+\noindent
+References: \\
+\noindent
+Udit Agarwal, Vijaya Ramachandran. A Deterministic Distributed Algorithm for Weighted All Pairs Shortest Paths Through Pipelining. arXiv:1807.08824v3. Oct 2018.\\
+Udit Agarwal, Vijaya Ramachandran, Valerie King and Matteo Pontecorvi. A Deterministic Distributed Algorithm for Exact Weighted All-Pairs Shortest Paths in $\widetilde{O}(n^\frac{3}{2})$ Rounds. 	arXiv:1807.08824. Jul 2018.
 
 \begin{table}[h!]
   \begin{center}
@@ -224,6 +229,7 @@ Because $flag-d^*$ and $p$ are also attached to entry $Z$, in our implementation
     As for the tool in this project, DistAlgo, has a nature of asynchronous condition. So, it could not resolve the synchronous case directly, also, users could not add a global variables directly for each process. However, the requirement of this algorithm needs every process to know the round number even if this process does not receive any message in this round. So, after each round of sending message of shortest path, we implemented a synchronization step for making sure all the processes could successfully get into the same round.
 
     Our strategy was simple at this step. We made all the processes send messages to every process contains the local round number. After receiving all the messages with the same round number as the local, the local round number increment by 1.
+    
 
     \begin{algorithm}[htb]
     \caption{Round Number Synchronization for process $p_i$}
@@ -281,7 +287,7 @@ Because $flag-d^*$ and $p$ are also attached to entry $Z$, in our implementation
 
 \end{enumerate}
 
-{\bf Results}
+{\bf Experimentation}
 
 \rule{6in}{.1pt}       % horizontal line 6 inches long and .1 point high
 
@@ -549,13 +555,13 @@ To begin with, the installation of DistAlgo is simple. Although we found some pr
 Nevertheless, there are some problems we found during implementation. First of all is that the official documents are too concise, or may be incomplete. We cannot find enough information about the keywords, syntax, and how to implement a distributed algorithm by simply reading the documents. Only after following official examples can we understand how to implement an algorithm. Moreover, we found that we cannot run the algorithm with more than about 80 processors, which will lead the program to crash. It is acceptable for just implementing algorithms in distributed papers, but may not be good enough for industrial scales. One last problem is that there is no synchronous environment embedded in the language, so we have to simulate synchronous over asynchronous at first to implement our proposed algorithm.\par
 To summarize, although not so friendly to beginners, DistAlgo is a great tool for learning and understanding algorithms in publications but needs further improvement to solve more complicated and larger-scale problems.\par
 
-{\bf Acknowledgement}
+{\bf Appendix}
 
 \rule{6in}{.1pt}       % horizontal line 6 inches long and .1 point high
 
 \begin{enumerate}
     \item[-]Feiyan Yu: Implemented the $(h,k)$-$SSP$ algorithm using DistAlgo and maintain a Github repository for this project.
-	\item[-]Boquan Tao:
+	\item[-]Boquan Tao: Read and Analysed the paper. Helped debugging.
 	\item[-]Ziyi Liu:
 \end{enumerate}
 
