@@ -533,9 +533,7 @@ We use DistAlgo to implement this algorithm and the results are correct. This al
 \rule{6in}{.1pt}       % horizontal line 6 inches long and .1 point high
 
 \begin{enumerate}
-    \item In the asynchronous condition, is there any other methods (have lower message complexity) better than the synchronization method we used to make each process get the same round number?
-    \item We know that the parameter $\Delta$ is related to the number of rounds for terminated, and if we set it properly, we could make our algorithm more efficient. Is there any methods for us to determine $\Delta$ even if we don't know exactly the weight of edges in the graph?
-    \item One of our assumption is that there is no failure. So what about the situation where there is some crush failures or others?
+    \item 
 \end{enumerate}
 
 {\bf DistAlgo Assessment}
