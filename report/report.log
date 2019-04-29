@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2019.4.25)  26 APR 2019 14:14
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2019.4.25)  28 APR 2019 22:56
 entering extended mode
 **D:/VM_shared/distalgo/DistAlgo_APSP/report/report.tex
 (D:/VM_shared/distalgo/DistAlgo_APSP/report/report.tex
@@ -474,7 +474,7 @@ File: CP3_440Tree/CP3_440Tree0start.png Graphic file (type png)
 
 <use CP3_440Tree/CP3_440Tree0start.png>
 Package pdftex.def Info: CP3_440Tree/CP3_440Tree0start.png used on input line 4
-16.
+17.
 (pdftex.def)             Requested size: 113.81102pt x 103.57965pt.
 
 <CP3_440Tree/CP3_440Tree1start.png, id=94, 331.2375pt x 331.2375pt>
@@ -482,7 +482,7 @@ File: CP3_440Tree/CP3_440Tree1start.png Graphic file (type png)
 
 <use CP3_440Tree/CP3_440Tree1start.png>
 Package pdftex.def Info: CP3_440Tree/CP3_440Tree1start.png used on input line 4
-20.
+21.
 (pdftex.def)             Requested size: 113.81102pt x 113.807pt.
 
 <CP3_440Tree/CP3_440Tree2start.png, id=95, 328.22626pt x 318.18875pt>
@@ -490,7 +490,7 @@ File: CP3_440Tree/CP3_440Tree2start.png Graphic file (type png)
 
 <use CP3_440Tree/CP3_440Tree2start.png>
 Package pdftex.def Info: CP3_440Tree/CP3_440Tree2start.png used on input line 4
-24.
+25.
 (pdftex.def)             Requested size: 113.81102pt x 110.32872pt.
 
 <CP3_440Tree/CP3_440Tree3start.png, id=96, 317.185pt x 305.14pt>
@@ -498,7 +498,7 @@ File: CP3_440Tree/CP3_440Tree3start.png Graphic file (type png)
 
 <use CP3_440Tree/CP3_440Tree3start.png>
 Package pdftex.def Info: CP3_440Tree/CP3_440Tree3start.png used on input line 4
-28.
+29.
 (pdftex.def)             Requested size: 113.81102pt x 109.48714pt.
 
 <CP3_440Tree/CP3_440Tree4start.png, id=97, 337.26pt x 296.10625pt>
@@ -506,7 +506,7 @@ File: CP3_440Tree/CP3_440Tree4start.png Graphic file (type png)
 
 <use CP3_440Tree/CP3_440Tree4start.png>
 Package pdftex.def Info: CP3_440Tree/CP3_440Tree4start.png used on input line 4
-32.
+33.
 (pdftex.def)             Requested size: 113.81102pt x 99.92024pt.
 
 <CP3_440Tree/CP3_440Tree5start.png, id=98, 304.13625pt x 297.11pt>
@@ -514,20 +514,20 @@ File: CP3_440Tree/CP3_440Tree5start.png Graphic file (type png)
 
 <use CP3_440Tree/CP3_440Tree5start.png>
 Package pdftex.def Info: CP3_440Tree/CP3_440Tree5start.png used on input line 4
-36.
+37.
 (pdftex.def)             Requested size: 113.81102pt x 111.18022pt.
  [6pdfTeX warning (ext4): destination with the same identifier (name{table.4}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.440 \clearpage
+l.441 \clearpage
                 pdfTeX warning (ext4): destination with the same identifier (na
 me{figure.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.440 \clearpage
+l.441 \clearpage
                  <D:/VM_shared/distalgo/DistAlgo_APSP/report/dag/source0.png> <
 D:/VM_shared/distalgo/DistAlgo_APSP/report/dag/source1.png> <D:/VM_shared/dista
 lgo/DistAlgo_APSP/report/dag/source2.png> <D:/VM_shared/distalgo/DistAlgo_APSP/
@@ -538,19 +538,19 @@ ready used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.440 \clearpage
+l.441 \clearpage
                 pdfTeX warning (ext4): destination with the same identifier (na
 me{table.5}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.440 \clearpage
+l.441 \clearpage
                 pdfTeX warning (ext4): destination with the same identifier (na
 me{figure.4}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.440 \clearpage
+l.441 \clearpage
                  <D:/VM_shared/distalgo/DistAlgo_APSP/report/CP3_440Tree/CP3_44
 0.png> <D:/VM_shared/distalgo/DistAlgo_APSP/report/CP3_440Tree/CP3_440Tree0star
 t.png> <D:/VM_shared/distalgo/DistAlgo_APSP/report/CP3_440Tree/CP3_440Tree1star
@@ -562,27 +562,27 @@ t.png>] <zero_weight/-1.png, id=138, 235.47975pt x 232.4685pt>
 File: zero_weight/-1.png Graphic file (type png)
 
 <use zero_weight/-1.png>
-Package pdftex.def Info: zero_weight/-1.png used on input line 450.
+Package pdftex.def Info: zero_weight/-1.png used on input line 451.
 (pdftex.def)             Requested size: 113.81102pt x 112.35335pt.
  <zero_weight/2.png, id=139, 266.79675pt x 244.5135pt>
 File: zero_weight/2.png Graphic file (type png)
 
 <use zero_weight/2.png>
-Package pdftex.def Info: zero_weight/2.png used on input line 454.
+Package pdftex.def Info: zero_weight/2.png used on input line 455.
 (pdftex.def)             Requested size: 113.81102pt x 104.30673pt.
 
 <negativeEdge/negativeEdge.png, id=140, 315.1775pt x 208.78pt>
 File: negativeEdge/negativeEdge.png Graphic file (type png)
 
 <use negativeEdge/negativeEdge.png>
-Package pdftex.def Info: negativeEdge/negativeEdge.png used on input line 476.
+Package pdftex.def Info: negativeEdge/negativeEdge.png used on input line 477.
 (pdftex.def)             Requested size: 113.81102pt x 75.3901pt.
 
 <negativeCycle/negativeCycle.png, id=141, 299.1175pt x 192.72pt>
 File: negativeCycle/negativeCycle.png Graphic file (type png)
 
 <use negativeCycle/negativeCycle.png>
-Package pdftex.def Info: negativeCycle/negativeCycle.png used on input line 480
+Package pdftex.def Info: negativeCycle/negativeCycle.png used on input line 481
 .
 (pdftex.def)             Requested size: 113.81102pt x 73.32845pt.
 
@@ -591,7 +591,7 @@ File: negativeEdge/negativeEdge0start.png Graphic file (type png)
 
 <use negativeEdge/negativeEdge0start.png>
 Package pdftex.def Info: negativeEdge/negativeEdge0start.png used on input line
- 490.
+ 491.
 (pdftex.def)             Requested size: 113.81102pt x 76.58809pt.
 
 <negativeEdge/negativeEdge1start.png, id=143, 269.005pt x 184.69pt>
@@ -599,7 +599,7 @@ File: negativeEdge/negativeEdge1start.png Graphic file (type png)
 
 <use negativeEdge/negativeEdge1start.png>
 Package pdftex.def Info: negativeEdge/negativeEdge1start.png used on input line
- 494.
+ 495.
 (pdftex.def)             Requested size: 113.81102pt x 78.13852pt.
 
 <negativeEdge/negativeEdge2start.png, id=144, 296.10625pt x 217.81375pt>
@@ -607,7 +607,7 @@ File: negativeEdge/negativeEdge2start.png Graphic file (type png)
 
 <use negativeEdge/negativeEdge2start.png>
 Package pdftex.def Info: negativeEdge/negativeEdge2start.png used on input line
- 498.
+ 499.
 (pdftex.def)             Requested size: 113.81102pt x 83.71729pt.
  [8
 
@@ -616,13 +616,13 @@ s been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.509 \rule{5in}{.1pt}\par
+l.510 \rule{5in}{.1pt}\par
                           pdfTeX warning (ext4): destination with the same iden
 tifier (name{figure.6}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.509 \rule{5in}{.1pt}\par
+l.510 \rule{5in}{.1pt}\par
                            <D:/VM_shared/distalgo/DistAlgo_APSP/report/zero_wei
 ght/-1.png> <D:/VM_shared/distalgo/DistAlgo_APSP/report/zero_weight/2.png> <D:/
 VM_shared/distalgo/DistAlgo_APSP/report/negativeEdge/negativeEdge.png> <D:/VM_s
@@ -632,18 +632,18 @@ already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.533 \rule{6in}{.1pt}
+l.534 \rule{6in}{.1pt}
                              % horizontal line 6 inches long and .1 point high 
 <D:/VM_shared/distalgo/DistAlgo_APSP/report/negativeEdge/negativeEdge0start.png
 > <D:/VM_shared/distalgo/DistAlgo_APSP/report/negativeEdge/negativeEdge1start.p
 ng> <D:/VM_shared/distalgo/DistAlgo_APSP/report/negativeEdge/negativeEdge2start
-.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 553.
- [10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 553.
+.png>] [10]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 563.
+ [11]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 563.
  (D:\VM_shared\distalgo\DistAlgo_APSP\report\report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 553.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 553.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 563.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 563.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -652,8 +652,8 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6206 strings out of 495354
- 89621 string characters out of 3183355
+ 6210 strings out of 495354
+ 89646 string characters out of 3183355
  182391 words of memory out of 3000000
  9192 multiletter control sequences out of 15000+200000
  14766 words of font info for 39 fonts, out of 3000000 for 9000
@@ -668,9 +668,9 @@ oftware/CTex/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Software/CTex
 /MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><D:/Software/CTex/MiKTeX/fonts
 /type1/urw/times/utmb8a.pfb><D:/Software/CTex/MiKTeX/fonts/type1/urw/times/utmr
 8a.pfb>
-Output written on report.pdf (10 pages, 394739 bytes).
+Output written on report.pdf (11 pages, 345443 bytes).
 PDF statistics:
- 224 PDF objects out of 1000 (max. 8388607)
- 85 named destinations out of 1000 (max. 500000)
+ 231 PDF objects out of 1000 (max. 8388607)
+ 89 named destinations out of 1000 (max. 500000)
  106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
